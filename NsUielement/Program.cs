@@ -10,24 +10,23 @@ namespace NsUielement
     {
         static void Main(string[] args)
         {
-            int maxHealth = 10;
-            int maxMana = 10;
+            int barLength = 10;
             string exit = "exit";
             bool isWork = true;
-            int health = 0;
-            int mana = 0;
+            int percentHealth = 0;
+            int percentMana = 0;
 
             while (isWork)
             {
-                DrawBar(health, maxHealth, ConsoleColor.Red, 0);
-                DrawBar(mana, maxMana, ConsoleColor.Blue, 1);
-                health = 0;
-                mana = 0;
+                DrawBar(percentHealth, barLength, ConsoleColor.Red, 0);
+                DrawBar(percentMana, barLength, ConsoleColor.Blue, 1);
+                percentHealth = 0;
+                percentMana = 0;
                 Console.SetCursorPosition(0, 5);
                 Console.Write("Введите процент жизней: ");
-                health += Convert.ToInt32(Console.ReadLine()) / maxHealth;
+                percentHealth += Convert.ToInt32(Console.ReadLine()) / barLength;
                 Console.Write("Введите процент маны: ");
-                mana += Convert.ToInt32(Console.ReadLine()) / maxMana;
+                percentMana += Convert.ToInt32(Console.ReadLine()) / barLength;
                 Console.WriteLine($"Введите {exit}, чтобы выйти из программы. Нажмите любую клавишу для продолжения работы...");
                 string userInput = Console.ReadLine();
                 Console.Clear();
@@ -39,32 +38,32 @@ namespace NsUielement
             }
         }
 
-        static void DrawBar(int value, int maxValue, ConsoleColor color, int position, char symbol = ' ')
+        private static void DrawBar(int percent, int barLength, ConsoleColor color, int position, char symbol = '#')
         {
             ConsoleColor consoleColor = Console.BackgroundColor;
             string bar = "";
             char openBracket = '[';
             char closeBracket = ']';
 
-            for (int i = 0; i < value; i++)
-            {
-                bar += symbol;
-            }
-
+            FormBar(ref bar, 0, percent, symbol);
             Console.SetCursorPosition(0, position);
             Console.Write(openBracket);
             Console.BackgroundColor = color;
             Console.Write(bar);
             Console.BackgroundColor = consoleColor;
             bar = "";
-
-            for (int i = value; i < maxValue; i++)
-            {
-                bar += ' ';
-            }
-
+            FormBar(ref bar,percent,barLength);
             Console.Write(bar + closeBracket);
         }
+
+        private static string FormBar(ref string bar,int value, int maxValue, char symbol = ' ')
+        {
+            for (int i = value; i < maxValue; i++)
+            {
+                bar += symbol;
+            }
+
+            return bar;
+        }
     }
-    
 }
