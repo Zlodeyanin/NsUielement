@@ -11,7 +11,7 @@ namespace NsUielement
         static void Main(string[] args)
         {
             int barLength = 10;
-            string exit = "exit";
+            string commandExit = "exit";
             bool isWork = true;
             int percentHealth = 0;
             int percentMana = 0;
@@ -24,14 +24,14 @@ namespace NsUielement
                 percentMana = 0;
                 Console.SetCursorPosition(0, 5);
                 Console.Write("Введите процент жизней: ");
-                percentHealth += Convert.ToInt32(Console.ReadLine()) / barLength;
+                percentHealth = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Введите процент маны: ");
-                percentMana += Convert.ToInt32(Console.ReadLine()) / barLength;
-                Console.WriteLine($"Введите {exit}, чтобы выйти из программы. Нажмите любую клавишу для продолжения работы...");
+                percentMana = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($"Введите {commandExit}, чтобы выйти из программы. Нажмите любую клавишу для продолжения работы...");
                 string userInput = Console.ReadLine();
                 Console.Clear();
 
-                if (userInput == exit)
+                if (userInput == commandExit)
                 {
                     isWork = false;
                 }
@@ -44,21 +44,29 @@ namespace NsUielement
             string bar = "";
             char openBracket = '[';
             char closeBracket = ']';
+            float value = barLength * percent / 100;
 
-            FormBar(ref bar, 0, percent, symbol);
-            Console.SetCursorPosition(0, position);
-            Console.Write(openBracket);
-            Console.BackgroundColor = color;
-            Console.Write(bar);
-            Console.BackgroundColor = consoleColor;
-            bar = "";
-            FormBar(ref bar,percent,barLength);
-            Console.Write(bar + closeBracket);
+            if (percent >= 0 && percent <= 100)
+            {
+                FormBar(ref bar, 0, value, symbol);
+                Console.SetCursorPosition(0, position);
+                Console.Write(openBracket);
+                Console.BackgroundColor = color;
+                Console.Write(bar);
+                Console.BackgroundColor = consoleColor;
+                bar = "";
+                FormBar(ref bar, value, barLength);
+                Console.Write(bar + closeBracket);
+            }
+            else
+            {
+                Console.WriteLine("Введённые данные некорректны");
+            }
         }
 
-        private static string FormBar(ref string bar,int value, int maxValue, char symbol = ' ')
+        private static string FormBar(ref string bar,float value, float maxValue, char symbol = ' ')
         {
-            for (int i = value; i < maxValue; i++)
+            for (float i = value; i < maxValue; i++)
             {
                 bar += symbol;
             }
