@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NsUielement
 {
@@ -44,9 +40,10 @@ namespace NsUielement
             string bar = "";
             char openBracket = '[';
             char closeBracket = ']';
-            float value = barLength * percent / 100;
+            int oneHundredPercent = 100; 
+            float value = barLength * percent / oneHundredPercent;
 
-            if (percent >= 0 && percent <= 100)
+            if (percent >= 0 && percent <= oneHundredPercent)
             {
                 FormBar(ref bar, 0, value, symbol);
                 Console.SetCursorPosition(0, position);
