@@ -37,7 +37,6 @@ namespace NsUielement
         private static void DrawBar(int percent, int barLength, ConsoleColor color, int position, char symbol = '#')
         {
             ConsoleColor consoleColor = Console.BackgroundColor;
-            string bar = "";
             char openBracket = '[';
             char closeBracket = ']';
             int oneHundredPercent = 100; 
@@ -45,14 +44,13 @@ namespace NsUielement
 
             if (percent >= 0 && percent <= oneHundredPercent)
             {
-                FormBar(ref bar, 0, value, symbol);
+                string bar = FormBar(value, symbol);
                 Console.SetCursorPosition(0, position);
                 Console.Write(openBracket);
                 Console.BackgroundColor = color;
                 Console.Write(bar);
                 Console.BackgroundColor = consoleColor;
-                bar = "";
-                FormBar(ref bar, value, barLength);
+                bar = FormBar(barLength-value, symbol);
                 Console.Write(bar + closeBracket);
             }
             else
@@ -61,9 +59,11 @@ namespace NsUielement
             }
         }
 
-        private static string FormBar(ref string bar,float value, float maxValue, char symbol = ' ')
+        private static string FormBar(float amount, char symbol = ' ')
         {
-            for (float i = value; i < maxValue; i++)
+            string bar = "";
+
+            for (int i = 0; i < amount; i++)
             {
                 bar += symbol;
             }
