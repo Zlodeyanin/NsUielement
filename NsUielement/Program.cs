@@ -16,13 +16,21 @@ namespace NsUielement
             {
                 DrawBar(percentHealth, barLength, ConsoleColor.Red, 0);
                 DrawBar(percentMana, barLength, ConsoleColor.Blue, 1);
-                percentHealth = 0;
-                percentMana = 0;
                 Console.SetCursorPosition(0, 5);
                 Console.Write("Введите процент жизней: ");
-                percentHealth = Convert.ToInt32(Console.ReadLine());
+                
+                if(int.TryParse(Console.ReadLine(), out percentHealth) == false)
+                {
+                    Console.WriteLine("Некорректный ввод");
+                }
+
                 Console.Write("Введите процент маны: ");
-                percentMana = Convert.ToInt32(Console.ReadLine());
+                
+                if (int.TryParse(Console.ReadLine(),out percentMana) == false)
+                {
+                    Console.WriteLine("Некорректный ввод");
+                }
+               
                 Console.WriteLine($"Введите {commandExit}, чтобы выйти из программы. Нажмите любую клавишу для продолжения работы...");
                 string userInput = Console.ReadLine();
                 Console.Clear();
@@ -45,13 +53,13 @@ namespace NsUielement
 
             if (percent >= 0 && percent <= oneHundredPercent)
             {
-                string bar = FormBar(value, symbol);
+                string bar = CompletePartBar(value, symbol);
                 Console.SetCursorPosition(0, position);
                 Console.Write(openBracket);
                 Console.BackgroundColor = color;
                 Console.Write(bar);
                 Console.BackgroundColor = consoleColor;
-                bar = FormBar(barLength-value, emptyPart);
+                bar = CompletePartBar(barLength-value, emptyPart);
                 Console.Write(bar + closeBracket);
             }
             else
@@ -60,7 +68,7 @@ namespace NsUielement
             }
         }
 
-        private static string FormBar(float amount, char symbol = ' ')
+        private static string CompletePartBar(float amount, char symbol = ' ')
         {
             string bar = "";
 
