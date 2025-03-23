@@ -39,6 +39,7 @@ namespace NsUielement
             ConsoleColor consoleColor = Console.BackgroundColor;
             char openBracket = '[';
             char closeBracket = ']';
+            char emptyPart = '_';
             int oneHundredPercent = 100; 
             float value = barLength * percent / oneHundredPercent;
 
@@ -50,7 +51,7 @@ namespace NsUielement
                 Console.BackgroundColor = color;
                 Console.Write(bar);
                 Console.BackgroundColor = consoleColor;
-                bar = FormBar(barLength-value, symbol);
+                bar = FormBar(barLength-value, emptyPart);
                 Console.Write(bar + closeBracket);
             }
             else
